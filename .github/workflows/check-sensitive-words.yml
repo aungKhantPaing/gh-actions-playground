@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Search for specific words in code
       run: |
-        if grep -R ${{ secrets.SPECIFIC_WORD }} ./*; then
+        if grep -R ${{ secrets.UNWANTED_WORD }} ./*; then
           echo "Found ${{ secrets.SPECIFIC_WORD }} in code"
           exit 1
         else
@@ -21,7 +21,7 @@ jobs:
         fi
     - name: Search for specific words in commit messages
       run: |
-        if git log --grep="${{ secrets.SPECIFIC_WORD }}"; then
+        if git log --grep="${{ secrets.UNWANTED_WORD }}"; then
           echo "Found ${{ secrets.SPECIFIC_WORD }} in commit messages"
           exit 1
         else

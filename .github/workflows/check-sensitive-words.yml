@@ -1,0 +1,29 @@
+name: Check for specific words
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-for-words:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Search for specific words in code
+      run: |
+        if grep -R ${{ secrets.SPECIFIC_WORD }} ./*; then
+          echo "Found ${{ secrets.SPECIFIC_WORD }} in code"
+          exit 1
+        else
+          echo "${{ secrets.SPECIFIC_WORD }} not found in code"
+        fi
+    - name: Search for specific words in commit messages
+      run: |
+        if git log --grep="${{ secrets.SPECIFIC_WORD }}"; then
+          echo "Found ${{ secrets.SPECIFIC_WORD }} in commit messages"
+          exit 1
+        else
+          echo "${{ secrets.SPECIFIC_WORD }} not found in commit messages"
+        fi

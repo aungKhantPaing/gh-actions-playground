@@ -14,16 +14,16 @@ jobs:
     - name: Search for specific words in code
       run: |
         if grep -R ${{ secrets.UNWANTED_WORD }} ./*; then
-          echo "Found ${{ secrets.SPECIFIC_WORD }} in code"
+          echo "Found ${{ secrets.UNWANTED_WORD }} in code"
           exit 1
         else
-          echo "${{ secrets.SPECIFIC_WORD }} not found in code"
+          echo "${{ secrets.UNWANTED_WORD }} not found in code"
         fi
     - name: Search for specific words in commit messages
       run: |
         if git log --grep="${{ secrets.UNWANTED_WORD }}"; then
-          echo "Found ${{ secrets.SPECIFIC_WORD }} in commit messages"
+          echo "Found ${{ secrets.UNWANTED_WORD }} in commit messages"
           exit 1
         else
-          echo "${{ secrets.SPECIFIC_WORD }} not found in commit messages"
+          echo "${{ secrets.UNWANTED_WORD }} not found in commit messages"
         fi

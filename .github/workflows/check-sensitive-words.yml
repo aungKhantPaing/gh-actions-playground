@@ -1,4 +1,4 @@
-name: Check for specific words
+name: Check for unwanted words
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Search for specific words in code
+    - name: Search for unwanted words in code
       run: |
         if grep -R ${{ secrets.UNWANTED_WORD }} ./*; then
           echo "Found ${{ secrets.UNWANTED_WORD }} in code"
@@ -19,9 +19,9 @@ jobs:
         else
           echo "${{ secrets.UNWANTED_WORD }} not found in code"
         fi
-    - name: Search for specific words in commit messages
+    - name: Search for unwanted words in commit messages
       run: |
-        if git log --grep="${{ secrets.UNWANTED_WORD }}"; then
+        if git log --oneline | grep -q ${{ secrets.UNWANTED_WORD }}; then
           echo "Found ${{ secrets.UNWANTED_WORD }} in commit messages"
           exit 1
         else

@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   check-for-words:
@@ -27,3 +30,4 @@ jobs:
         else
           echo "${{ secrets.UNWANTED_WORD }} not found in commit messages"
         fi
+

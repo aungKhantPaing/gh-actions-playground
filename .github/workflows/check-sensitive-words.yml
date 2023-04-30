@@ -24,7 +24,7 @@ jobs:
         fi
     - name: Search for unwanted words in commit messages
       run: |
-        if git log --oneline | grep -q ${{ secrets.UNWANTED_WORD }}; then
+        if git log -S ${{ secrets.UNWANTED_WORD }} | grep -q ${{ secrets.UNWANTED_WORD }}; then
           echo "Found ${{ secrets.UNWANTED_WORD }} in commit messages"
           exit 1
         else

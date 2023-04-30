@@ -1,3 +1,3 @@
 # gh-actions-playground
 
-polo
+solo
